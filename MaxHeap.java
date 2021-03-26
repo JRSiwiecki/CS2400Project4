@@ -1,4 +1,11 @@
 import java.util.Arrays;
+
+/**
+ * MaxHeap class implemented with an array.
+ * @author Joseph
+ *
+ * @param <T> Generic data type.
+ */
 public class MaxHeap<T extends Comparable<? super T>>
 		implements MaxHeapInterface<T>
 {
@@ -53,33 +60,7 @@ public class MaxHeap<T extends Comparable<? super T>>
 		}
 	}
 	
-	public T getMax()
-	{
-		checkInitialization();
-		T root = null;
-		if (!isEmpty())
-		{
-			root = heap[1];
-		}
-		return root;
-	}
-	
-	public int getSize()
-	{
-		return lastIndex;
-	}
-	
-	public void clear()
-	{
-		checkInitialization();
-		while (lastIndex > -1)
-		{
-			heap[lastIndex] = null;
-			lastIndex--;
-		}
-		lastIndex = 0;
-	}
-	
+	@Override
 	public void add(T newEntry)
 	{
 		checkInitialization(); // Ensure initialization of data fields
@@ -97,6 +78,7 @@ public class MaxHeap<T extends Comparable<? super T>>
 		ensureCapacity();
 	}
 	
+	@Override
 	public T removeMax()
 	{
 		checkInitialization(); // Ensure initialization of data fields
@@ -113,6 +95,48 @@ public class MaxHeap<T extends Comparable<? super T>>
 		return root;		
 	}
 	
+	@Override
+	public T getMax()
+	{
+		checkInitialization();
+		T root = null;
+		if (!isEmpty())
+		{
+			root = heap[1];
+		}
+		return root;
+	}
+	
+	@Override
+	public boolean isEmpty() 
+	{
+		return lastIndex == 0;
+	}
+	
+	@Override
+	public int getSize()
+	{
+		return lastIndex;
+	}
+	
+	@Override
+	public void clear()
+	{
+		checkInitialization();
+		while (lastIndex > -1)
+		{
+			heap[lastIndex] = null;
+			lastIndex--;
+		}
+		lastIndex = 0;
+	}
+	
+	/**
+	 * The smarter way of constructing a max-heap, by 
+	 * repeatedly using reheap, which is faster than adding the 
+	 * entries by size the normal way.
+	 * @param rootIndex The index to reheap.
+	 */
 	private void reheap(int rootIndex)
 	{
 		boolean done = false;
@@ -146,6 +170,10 @@ public class MaxHeap<T extends Comparable<? super T>>
 		heap[rootIndex] = orphan;
 	}
 	
+	/**
+	 * If we have the space to do so, ensure capacity for new elements
+	 * by doubling the size of the array.
+	 */
 	private void ensureCapacity()
 	{
 		if (lastIndex >= heap.length - 1)
@@ -156,6 +184,10 @@ public class MaxHeap<T extends Comparable<? super T>>
 		}
 	}
 	
+	/**
+	 * Checks to see if we are over the max capacity allocated.
+	 * @param capacity The capacity to check.
+	 */
 	private void checkCapacity(int capacity)
     {
         if (capacity > MAX_CAPACITY)
@@ -165,4 +197,15 @@ public class MaxHeap<T extends Comparable<? super T>>
                                         "maximum of " + MAX_CAPACITY);
         }
     }	
+	
+	/**
+	 * Ensures that the heap has been initialized.
+	 */
+	private void checkInitialization()
+    {
+        if (!initialized)
+        {
+            throw new SecurityException("ResizeableArrayBag object is corrupt.");
+        }
+    }
 }

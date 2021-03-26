@@ -61,4 +61,21 @@ public class MaxHeap<T extends Comparable<? super T>>
 		}
 		lastIndex = 0;
 	}
+	
+	public void add(T newEntry)
+	{
+		checkInitialization(); // Ensure initialization of data fields
+		int newIndex = lastIndex + 1;
+		int parentIndex = newIndex / 2;
+		while ( (parentIndex > 0) && newEntry.compareTo(heap[parentIndex]) > 0)
+		{
+			heap[newIndex] = heap[parentIndex];
+			newIndex = parentIndex;
+			parentIndex = newIndex / 2;
+		}
+		
+		heap[newIndex] = newEntry;
+		lastIndex++;
+		ensureCapacity();
+	}
 }

@@ -78,4 +78,20 @@ public class MaxHeap<T extends Comparable<? super T>>
 		lastIndex++;
 		ensureCapacity();
 	}
+	
+	public T removeMax()
+	{
+		checkInitialization(); // Ensure initialization of data fields
+		T root = null;
+		
+		if (!isEmpty())
+		{
+			root = heap[1];				// Return value
+			heap[1] = heap[lastIndex];  // Form a semiheap
+			lastIndex--;				// Decrease size
+			reheap(1);					// Transform to a heap
+		}
+		
+		return root;		
+	}
 }

@@ -57,7 +57,7 @@ public class MaxHeap<T extends Comparable<? super T>>
 	{
 		checkInitialization();
 		T root = null;
-		if (!isempty())
+		if (!isEmpty())
 		{
 			root = heap[1];
 		}
@@ -145,4 +145,24 @@ public class MaxHeap<T extends Comparable<? super T>>
 		
 		heap[rootIndex] = orphan;
 	}
+	
+	private void ensureCapacity()
+	{
+		if (lastIndex >= heap.length - 1)
+		{
+			int newLength = 2 * heap.length;
+			checkCapacity(newLength);
+			heap = Arrays.copyOf(heap, newLength);
+		}
+	}
+	
+	private void checkCapacity(int capacity)
+    {
+        if (capacity > MAX_CAPACITY)
+        {
+            throw new IllegalStateException("Attempt to create a bag whose " +
+                                        "capacity exceeds allowed " +
+                                        "maximum of " + MAX_CAPACITY);
+        }
+    }	
 }

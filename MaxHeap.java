@@ -35,6 +35,24 @@ public class MaxHeap<T extends Comparable<? super T>>
 		initialized = true;
 	}
 	
+	public MaxHeap(T[] entries)
+	{
+		this(entries.length); // Call other constructor
+		assert initialized = true;
+		
+		// Copy given array to data field
+		for (int index = 0; index < entries.length; index++)
+		{
+			heap[index + 1] = entries[index];
+		}
+		
+		// Create heap
+		for (int rootIndex = lastIndex / 2; rootIndex > 0; rootIndex--)
+		{
+			reheap(rootIndex);
+		}
+	}
+	
 	public T getMax()
 	{
 		checkInitialization();

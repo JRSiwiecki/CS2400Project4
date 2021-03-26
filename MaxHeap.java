@@ -34,4 +34,31 @@ public class MaxHeap<T extends Comparable<? super T>>
 		lastIndex = 0;
 		initialized = true;
 	}
+	
+	public T getMax()
+	{
+		checkInitialization();
+		T root = null;
+		if (!isempty())
+		{
+			root = heap[1];
+		}
+		return root;
+	}
+	
+	public int getSize()
+	{
+		return lastIndex;
+	}
+	
+	public void clear()
+	{
+		checkInitialization();
+		while (lastIndex > -1)
+		{
+			heap[lastIndex] = null;
+			lastIndex--;
+		}
+		lastIndex = 0;
+	}
 }

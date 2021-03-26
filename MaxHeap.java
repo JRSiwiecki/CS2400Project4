@@ -15,11 +15,18 @@ public class MaxHeap<T extends Comparable<? super T>>
 	private static final int DEFAULT_CAPACITY = 25;
 	private static final int MAX_CAPACITY = 10000;
 	
+	/**
+	 * Constructs a MaxHeap with the default capacity.
+	 */
 	public MaxHeap()
 	{
 		this(DEFAULT_CAPACITY);
 	}
 	
+	/**
+	 * Constructs a MaxHeap with a given capacity.
+	 * @param initialCapacity The provided capacity.
+	 */
 	public MaxHeap(int initialCapacity)
 	{
 		// Is initialCapacity too small?
@@ -42,6 +49,10 @@ public class MaxHeap<T extends Comparable<? super T>>
 		initialized = true;
 	}
 	
+	/**
+	 * Constructs a MaxHeap using reheap when given an array of entries.
+	 * @param entries The array of entries.
+	 */
 	public MaxHeap(T[] entries)
 	{
 		this(entries.length); // Call other constructor

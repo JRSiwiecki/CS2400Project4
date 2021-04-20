@@ -146,6 +146,31 @@ public class MaxHeap<T extends Comparable<? super T>>
 	}
 	
 	/**
+	 * Method to write elements of MaxHeap to a file.
+	 * @param fileName The file to be written to.
+	 */
+	public void writeToFile(String fileName)
+	{
+		try 
+		{
+			File file = new File(fileName);
+			FileWriter writer = new FileWriter(file);
+			
+			for (int i = 0; i < lastIndex; i++)
+			{
+				writer.write(heap[i] + "\n");
+			}
+			
+			writer.close();
+		} 
+		
+		catch (IOException e)
+		{
+			System.out.println("ERROR: Unable to write to file.");
+		}
+	}
+	
+	/**
 	 * The smarter way of constructing a max-heap, by 
 	 * repeatedly using reheap, which is faster than adding the 
 	 * entries by size the normal way.

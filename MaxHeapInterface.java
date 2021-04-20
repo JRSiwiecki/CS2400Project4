@@ -1,28 +1,26 @@
 /**
  * Interface providing the baseline for a max heap.
  * @author Joseph
- *
- * @param <T> Generic data type.
  */
-public interface MaxHeapInterface<T extends Comparable<? super T>>
+public interface MaxHeapInterface
 {
 	/**
 	 * Adds an entry to the heap.
 	 * @param newEntry The entry to add.
 	 */
-	public void add(T newEntry);
+	public void add(int newEntry);
 	
 	/**
 	 * Removes the max (the root).
 	 * @return The entry removed.
 	 */
-	public T removeMax();
+	public int removeMax();
 	
 	/**
 	 * Retrieves the max (the root).
 	 * @return The max entry.
 	 */
-	public T getMax();
+	public int getMax();
 	
 	/**
 	 * Checks if the heap is empty.

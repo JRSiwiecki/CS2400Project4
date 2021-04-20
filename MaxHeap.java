@@ -59,7 +59,7 @@ public class MaxHeap implements MaxHeapInterface
 		// Copy given array to data field
 		for (int index = 0; index < entries.length; index++)
 		{
-			heap[index + 1] = entries[index];
+			heap[index] = entries[index];
 		}
 		
 		// Create heap
@@ -75,6 +75,7 @@ public class MaxHeap implements MaxHeapInterface
 		checkInitialization(); // Ensure initialization of data fields
 		int newIndex = lastIndex + 1;
 		int parentIndex = newIndex / 2;
+		
 		while ( (parentIndex > 0) && newEntry < heap[parentIndex] )
 		{
 			heap[newIndex] = heap[parentIndex];
@@ -133,11 +134,13 @@ public class MaxHeap implements MaxHeapInterface
 	public void clear()
 	{
 		checkInitialization();
+		
 		while (lastIndex > -1)
 		{
 			heap[lastIndex] = 0;
 			lastIndex--;
 		}
+		
 		lastIndex = 0;
 	}
 	

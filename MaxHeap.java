@@ -3,8 +3,6 @@ import java.util.Arrays;
 /**
  * MaxHeap class implemented with an array.
  * @author Joseph
- *
- * @param <T> Generic data type.
  */
 public class MaxHeap implements MaxHeapInterface
 {
@@ -13,7 +11,7 @@ public class MaxHeap implements MaxHeapInterface
 	private boolean initialized = false;
 	private static final int DEFAULT_CAPACITY = 25;
 	private static final int MAX_CAPACITY = 10000;
-	private static int reheapCount = 0;
+	private int reheapCount = 0;
 	
 	/**
 	 * Constructs a MaxHeap with the default capacity.
@@ -41,8 +39,6 @@ public class MaxHeap implements MaxHeapInterface
 			checkCapacity(initialCapacity);
 		}
 		
-		// The cast is safe because the new array contains all null entries
-		@SuppressWarnings("unchecked")
 		int[] tempHeap = new int[initialCapacity + 1];
 		heap = tempHeap;
 		lastIndex = 0;
@@ -55,8 +51,10 @@ public class MaxHeap implements MaxHeapInterface
 	 */
 	public MaxHeap(int[] entries)
 	{
-		this(entries.length); // Call other constructor
+		this(entries.length + 1); // Call other constructor
+		
 		assert initialized = true;
+		lastIndex = entries.length;
 		
 		// Copy given array to data field
 		for (int index = 0; index < entries.length; index++)
@@ -68,6 +66,7 @@ public class MaxHeap implements MaxHeapInterface
 		for (int rootIndex = lastIndex / 2; rootIndex > 0; rootIndex--)
 		{
 			reheap(rootIndex);
+			reheapCount++;
 		}
 	}
 	
@@ -82,6 +81,7 @@ public class MaxHeap implements MaxHeapInterface
 			heap[newIndex] = heap[parentIndex];
 			newIndex = parentIndex;
 			parentIndex = newIndex / 2;
+			reheapCount++;
 		}
 		
 		heap[newIndex] = newEntry;

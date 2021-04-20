@@ -66,7 +66,6 @@ public class MaxHeap implements MaxHeapInterface
 		for (int rootIndex = lastIndex / 2; rootIndex > 0; rootIndex--)
 		{
 			reheap(rootIndex);
-			reheapCount++;
 		}
 	}
 	
@@ -170,6 +169,7 @@ public class MaxHeap implements MaxHeapInterface
 				heap[rootIndex] = heap[largerChildIndex];
 				rootIndex = largerChildIndex;
 				leftChildIndex = 2 * rootIndex;
+				reheapCount++;
 			}
 			
 			else 

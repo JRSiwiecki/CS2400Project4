@@ -1,7 +1,4 @@
 import java.util.Arrays;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
 /**
  * MaxHeap class implemented with an array.
@@ -9,14 +6,14 @@ import java.io.IOException;
  *
  * @param <T> Generic data type.
  */
-public class MaxHeap<T extends Comparable<? super T>>
-		implements MaxHeapInterface<T>
+public class MaxHeap implements MaxHeapInterface
 {
-	private T[] heap; // Array of heap entries
+	private int[] heap; // Array of heap entries
 	private int lastIndex; // Index of last entry
 	private boolean initialized = false;
 	private static final int DEFAULT_CAPACITY = 25;
 	private static final int MAX_CAPACITY = 10000;
+	private static int reheapCount = 0;
 	
 	/**
 	 * Constructs a MaxHeap with the default capacity.
@@ -46,7 +43,7 @@ public class MaxHeap<T extends Comparable<? super T>>
 		
 		// The cast is safe because the new array contains all null entries
 		@SuppressWarnings("unchecked")
-		T[] tempHeap = (T[]) new Comparable[initialCapacity + 1];
+		int[] tempHeap = new int[initialCapacity + 1];
 		heap = tempHeap;
 		lastIndex = 0;
 		initialized = true;
@@ -56,7 +53,7 @@ public class MaxHeap<T extends Comparable<? super T>>
 	 * Constructs a MaxHeap using reheap when given an array of entries.
 	 * @param entries The array of entries.
 	 */
-	public MaxHeap(T[] entries)
+	public MaxHeap(int[] entries)
 	{
 		this(entries.length); // Call other constructor
 		assert initialized = true;
@@ -75,12 +72,12 @@ public class MaxHeap<T extends Comparable<? super T>>
 	}
 	
 	@Override
-	public void add(T newEntry)
+	public void add(int newEntry)
 	{
 		checkInitialization(); // Ensure initialization of data fields
 		int newIndex = lastIndex + 1;
 		int parentIndex = newIndex / 2;
-		while ( (parentIndex > 0) && newEntry.compareTo(heap[parentIndex]) > 0)
+		while ( (parentIndex > 0) && newEntry < heap[parentIndex] )
 		{
 			heap[newIndex] = heap[parentIndex];
 			newIndex = parentIndex;
@@ -93,10 +90,10 @@ public class MaxHeap<T extends Comparable<? super T>>
 	}
 	
 	@Override
-	public T removeMax()
+	public int removeMax()
 	{
 		checkInitialization(); // Ensure initialization of data fields
-		T root = null;
+		int root = 0;
 		
 		if (!isEmpty())
 		{
@@ -110,10 +107,10 @@ public class MaxHeap<T extends Comparable<? super T>>
 	}
 	
 	@Override
-	public T getMax()
+	public int getMax()
 	{
 		checkInitialization();
-		T root = null;
+		int root = 0;
 		if (!isEmpty())
 		{
 			root = heap[1];
@@ -139,7 +136,7 @@ public class MaxHeap<T extends Comparable<? super T>>
 		checkInitialization();
 		while (lastIndex > -1)
 		{
-			heap[lastIndex] = null;
+			heap[lastIndex] = 0;
 			lastIndex--;
 		}
 		lastIndex = 0;
@@ -154,7 +151,7 @@ public class MaxHeap<T extends Comparable<? super T>>
 	public void reheap(int rootIndex)
 	{
 		boolean done = false;
-		T orphan = heap[rootIndex];
+		int orphan = heap[rootIndex];
 		int leftChildIndex = 2 * rootIndex;
 		
 		while (!done && (leftChildIndex <= lastIndex))
@@ -163,12 +160,12 @@ public class MaxHeap<T extends Comparable<? super T>>
 			int rightChildIndex = leftChildIndex + 1;
 			
 			if ((rightChildIndex <= lastIndex) && 
-					heap[rightChildIndex].compareTo(heap[largerChildIndex]) > 0)
+					heap[rightChildIndex] > heap[largerChildIndex])
 			{
 				largerChildIndex = rightChildIndex;
 			}
 			
-			if (orphan.compareTo(heap[largerChildIndex]) < 0)
+			if (orphan < heap[largerChildIndex])
 			{
 				heap[rootIndex] = heap[largerChildIndex];
 				rootIndex = largerChildIndex;
@@ -222,4 +219,41 @@ public class MaxHeap<T extends Comparable<? super T>>
             throw new SecurityException("ResizeableArrayBag object is corrupt.");
         }
     }
+	
+	/**
+	 * To array.
+	 * @return The array.
+	 */
+	public int[] toArray()
+	{
+		int[] copy = new int[heap.length];
+		copy = heap;
+		return copy;
+	}
+	
+	/**
+	 * Returns first ten integers of MaxHeap.
+	 * @return Array of first ten integers.
+	 */
+	public int[] printTen()
+	{
+		int[] ten = new int[10];
+		int[] copy = toArray();
+		
+		for (int i = 1; i < 10; i++)
+		{
+			ten[i] = copy[i];
+		}
+		
+		return ten;
+	}
+	
+	/**
+	 * Returns number of reheaps.
+	 * @return The number of reheaps.
+	 */
+	public int getReheapCount()
+	{
+		return reheapCount;
+	}
 }

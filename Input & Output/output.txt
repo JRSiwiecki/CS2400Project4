@@ -1,0 +1,15 @@
+Heap built using sequential insertions with random data: [0, 60, 136, 17, 40, 198, 24, 144, 45, 50]
+Number of swaps in the heap creation: 128
+Heap after 10 removals: [0, 515, 944, 17, 40, 924, 24, 144, 45, 50]
+
+Heap built using optimal method with random data: [0, 997, 982, 991, 960, 982, 972, 931, 814, 874]
+Number of swaps in the heap creation: 69
+Heap after 10 removals: [0, 931, 924, 913, 874, 904, 843, 880, 814, 872]
+
+Heap built using sequential insertions with sorted data: [0, 0, 2, 1, 4, 5, 3, 7, 8, 9]
+Number of swaps in the heap creation: 6
+Heap after 10 removals: [0, 93, 2, 1, 4, 5, 3, 7, 8, 9]
+
+Heap built using optimal method with sorted data: [0, 100, 96, 99, 80, 95, 98, 64, 72, 79]
+Number of swaps in the heap creation: 95
+Heap after 10 removals: [0, 91, 90, 64, 80, 89, 56, 63, 72, 79]
